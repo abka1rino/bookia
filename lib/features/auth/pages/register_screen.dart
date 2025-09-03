@@ -1,11 +1,9 @@
 import 'package:bookia/components/buttons/main_button.dart';
 import 'package:bookia/components/inputs/custom_text_form_field.dart';
-import 'package:bookia/core/constants/app_assets.dart';
 import 'package:bookia/core/extentions/navigation.dart';
 import 'package:bookia/core/utils/app_colors.dart';
 import 'package:bookia/core/utils/text_style.dart';
 import 'package:bookia/features/auth/pages/login_screen.dart';
-import 'package:bookia/features/auth/widgets/login_icon_container.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
