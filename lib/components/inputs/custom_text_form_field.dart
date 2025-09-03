@@ -24,23 +24,24 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       decoration: InputDecoration(
-        fillColor: Color(0xffE8ECF4),
+        fillColor: Color(0xffF7F8F9),
         filled: true,
+        
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: Color(0xffEDF1F6),width: 1.2),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: Color(0xffEDF1F6),width: 1.2),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: Color(0xffEDF1F6),width: 1.2),
         ),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        label: Text(labelText,style: TextStyles.getBody(color: Color(0xff8391A1)),),
+        label: Text(labelText,style: TextStyles.getBody(color: Color(0xff8391A1),fontWeight: FontWeight.w500),),
       ),
     );
   }
