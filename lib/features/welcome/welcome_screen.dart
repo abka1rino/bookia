@@ -1,9 +1,8 @@
 import 'package:bookia/components/buttons/main_button.dart';
 import 'package:bookia/core/constants/app_assets.dart';
-import 'package:bookia/core/extentions/navigation.dart';
+import 'package:bookia/core/routes/navigation.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/text_style.dart';
-import 'package:bookia/features/auth/pages/login_screen.dart';
-import 'package:bookia/features/auth/pages/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -64,7 +63,7 @@ class WelcomeScreen extends StatelessWidget {
                     child: MainButton(
                       text: 'Login',
                       onPressed: () {
-                        pushTo(context, LoginScreen());
+                        pushTo(context, Routes.login);
                       },
                     ),
                   ),
@@ -74,7 +73,7 @@ class WelcomeScreen extends StatelessWidget {
                     child: MainButton(
                       text: 'Register',
                       onPressed: () {
-                        pushTo(context, RegisterScreen());
+                        pushTo(context, Routes.register);
                       },
                       bgColor: Colors.white,
                       textColor: Colors.black,
