@@ -49,12 +49,11 @@ class LoginScreen extends StatelessWidget {
                 child: Lottie.asset(AppAssets.loadingAnimation, width: 150, height: 150),
               ),
             );
-          } else if (AuthState is AuthSuccess) {
-            Navigator.of(context).pop(); 
+          } else if (state is AuthSuccess) {
+            pop(context);
             pushUntil(context, Routes.home);
-            
-          } else if (AuthState is AuthError) {
-            Navigator.of(context).pop(); 
+          } else if (state is AuthError) {
+            pop(context);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Wrong email or password'),backgroundColor: AppColors.primaryColor,),
             );

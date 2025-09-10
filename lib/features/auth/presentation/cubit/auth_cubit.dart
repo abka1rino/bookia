@@ -17,7 +17,6 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     try {
       await AuthRepo.login(
-        // Assuming AuthParams is a class that takes email and password
         AuthParams(email: email, password: password),
       );
       emit(AuthSuccess());
