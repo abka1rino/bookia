@@ -1,10 +1,13 @@
 import 'package:bookia/core/services/api/api_provider.dart';
+import 'package:bookia/core/services/cashing/user_caching.dart';
 import 'package:bookia/core/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:bookia/core/routes/routes.dart';
 
-void main() {
+Future<void> main() async {
   ApiProvider.init();
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserCaching().init();
   runApp(const Bookia());
 }
 

@@ -1,6 +1,7 @@
 import 'package:bookia/core/constants/app_assets.dart';
 import 'package:bookia/core/routes/navigation.dart';
 import 'package:bookia/core/routes/routes.dart';
+import 'package:bookia/core/services/cashing/user_caching.dart';
 import 'package:bookia/core/utils/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,7 +18,12 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2), () {
-      pushWithReplacement(context, Routes.welcome);
+      if(UserCaching.getUserData()!=null){
+        pushWithReplacement(context, Routes.home);
+        
+      }else{
+        pushWithReplacement(context, Routes.welcome);
+      }
     });
 
     // Perform any initialization tasks here

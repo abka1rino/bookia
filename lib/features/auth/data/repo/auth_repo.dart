@@ -1,21 +1,45 @@
+import 'dart:math';
+
 import 'package:bookia/core/services/api/api_endpoints.dart';
 import 'package:bookia/core/services/api/api_provider.dart';
+import 'package:bookia/core/services/cashing/user_caching.dart';
 import 'package:bookia/features/auth/data/models/requests/auth_params.dart';
+import 'package:bookia/features/auth/data/models/response/auth_response.dart';
 
 class AuthRepo {
-  static Future<void> login(AuthParams params) {
+  static Future<AuthResponse?> login(AuthParams params) async {
     try {
-      return ApiProvider.post(ApiEndpoints.login, data: params.toJson());
+      var res = await ApiProvider.post(
+        ApiEndpoints.login,
+        data: params.toJson(),
+      );
+      if (res.statusCode == 200) {
+        AuthResponse? data = AuthResponse.fromJson(res.data);
+        await UserCaching.setUserData(data);
+        return data;
+      } else {
+        return null;
+      }
     } catch (e) {
-      rethrow;
+      return null;
     }
   }
 
-  static Future<void> register(AuthParams params) {
+  static Future<AuthResponse?> register(AuthParams params) async {
     try {
-      return ApiProvider.post(ApiEndpoints.register, data: params.toJson());
+      var res = await ApiProvider.post(
+        ApiEndpoints.register,
+        data: params.toJson(),
+      );
+      if (res.statusCode == 201) {
+        AuthResponse? data = AuthResponse.fromJson(res.data);
+        await UserCaching.setUserData(data);
+        return data;
+      } else {
+        return null;
+      }
     } catch (e) {
-      rethrow;
+      return null;
     }
   }
 
@@ -40,14 +64,19 @@ class AuthRepo {
       rethrow;
     }
   }
-  static Future<void> changePassword(int otpcode, String password, String confirmPassword) {
+
+  static Future<void> changePassword(
+    int otpcode,
+    String password,
+    String confirmPassword,
+  ) {
     try {
       return ApiProvider.post(
         ApiEndpoints.changePassword,
         data: {
           'verify_code': otpcode,
           'new_password': password,
-          'new_password_confirmation': confirmPassword
+          'new_password_confirmation': confirmPassword,
         },
       );
     } catch (e) {
