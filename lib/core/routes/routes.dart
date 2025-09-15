@@ -5,7 +5,7 @@ import 'package:bookia/features/auth/presentation/pages/login_screen.dart';
 import 'package:bookia/features/auth/presentation/pages/otp_screen.dart';
 import 'package:bookia/features/auth/presentation/pages/register_screen.dart';
 import 'package:bookia/features/auth/presentation/pages/resset_success_screen.dart';
-import 'package:bookia/features/main/presentation/home.dart';
+import 'package:bookia/features/main/presentation/pages/home.dart';
 import 'package:bookia/features/splash/splash_screen.dart';
 import 'package:bookia/features/welcome/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
