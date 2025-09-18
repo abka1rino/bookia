@@ -8,7 +8,9 @@ class MainButton extends StatelessWidget {
     required this.onPressed,
     this.width,
     this.bgColor,
-    this.height = 60, this.textColor,
+    this.height = 60,
+    this.textColor,
+    this.textStyle
   });
   final String text;
   final Function() onPressed;
@@ -16,6 +18,7 @@ class MainButton extends StatelessWidget {
   final double? width;
   final Color? bgColor;
   final Color? textColor;
+  final TextStyle? textStyle;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -29,10 +32,10 @@ class MainButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: TextStyle(
+          style:textStyle??TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 16,
-            color: textColor?? Colors.white,
+            color: textColor ?? Colors.white,
           ),
         ),
       ),
