@@ -5,7 +5,8 @@ import 'package:bookia/features/auth/presentation/pages/login_screen.dart';
 import 'package:bookia/features/auth/presentation/pages/otp_screen.dart';
 import 'package:bookia/features/auth/presentation/pages/register_screen.dart';
 import 'package:bookia/features/auth/presentation/pages/resset_success_screen.dart';
-import 'package:bookia/features/main/presentation/pages/home.dart';
+import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
+import 'package:bookia/features/home/presentation/pages/home_screen.dart';
 import 'package:bookia/features/splash/splash_screen.dart';
 import 'package:bookia/features/welcome/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +29,7 @@ class Routes {
       GoRoute(path: welcome,builder: (context, state) => WelcomeScreen(),),
       GoRoute(path: login,builder: (context, state) => BlocProvider(create: (context) => AuthCubit(), child: LoginScreen()),),
       GoRoute(path: register,builder: (context, state) => BlocProvider(create: (context) => AuthCubit(), child: RegisterScreen()),),
-      GoRoute(path: home,builder: (context, state) => BlocProvider(create: (context) => AuthCubit(), child: HomeScreen()),),
+      GoRoute(path: home,builder: (context, state) => BlocProvider(create: (context) => HomeCubit()..getHomeData(), child: HomeScreen()),),
       GoRoute(path: forgetPassword,builder: (context, state) {
         return BlocProvider(create: (context) => AuthCubit(), child: ForgetPasswordScreen(),);
       },),

@@ -5,4 +5,8 @@ class ApiEndpoints {
   static const String forgotPassword = '$baseUrl/forget-password';
   static const String verifyOtp = '$baseUrl/check-forget-password';
   static const String changePassword = '$baseUrl/reset-password';
+  static const String allProducts = '$baseUrl/products';
+  static const String newArrivslsProducts = '$baseUrl/products-new-arrivals';
+  static const String bestSellerProducts = '$baseUrl/products-bestseller';
+  static const String sliders = '$baseUrl/sliders';
 }
