@@ -1,3 +1,4 @@
+import 'package:bookia/components/app%20bar/app_bar.dart';
 import 'package:bookia/components/buttons/main_button.dart';
 import 'package:bookia/components/inputs/custom_text_form_field.dart';
 import 'package:bookia/core/constants/app_assets.dart';
@@ -20,24 +21,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: navigateToSignUp(context),
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 10, top: 10),
-          child: GestureDetector(
-            onTap: () {
-              pushWithReplacement(context, Routes.welcome);
-            },
-            child: Container(
-              width: 30,
-              height: 30,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xffE8ECF4), width: 1),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Icon(Icons.arrow_back_ios_new),
-            ),
-          ),
-        ),
+      appBar: AppBarBackSpace(
       ),
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
@@ -46,16 +30,23 @@ class LoginScreen extends StatelessWidget {
               context: context,
               barrierDismissible: false,
               builder: (context) => Center(
-                child: Lottie.asset(AppAssets.loadingAnimation, width: 150, height: 150),
+                child: Lottie.asset(
+                  AppAssets.loadingAnimation,
+                  width: 150,
+                  height: 150,
+                ),
               ),
             );
           } else if (state is AuthSuccess) {
             pop(context);
-            pushUntil(context, Routes.home);
+            pushUntil(context, Routes.main);
           } else if (state is AuthError) {
             pop(context);
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Wrong email or password'),backgroundColor: AppColors.primaryColor,),
+              SnackBar(
+                content: Text('Wrong email or password'),
+                backgroundColor: AppColors.primaryColor,
+              ),
             );
           }
         },
@@ -91,7 +82,7 @@ class LoginScreen extends StatelessWidget {
                 validator: (val) {
                   if (val == null || val == '') {
                     return 'Please enter your email';
-                  }else{
+                  } else {
                     return null;
                   }
                 },
@@ -103,7 +94,7 @@ class LoginScreen extends StatelessWidget {
                 validator: (val) {
                   if (val == null || val == '') {
                     return 'Please enter your password';
-                  }else{
+                  } else {
                     return null;
                   }
                 },
@@ -142,11 +133,17 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
               Gap(25),
-              MainButton(text: 'Login', onPressed: () {
-                if(formKey.currentState!.validate()){
-                  cubit.signIn(cubit.emailController.text, cubit.passwordController.text);
-                }
-              }),
+              MainButton(
+                text: 'Login',
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    cubit.signIn(
+                      cubit.emailController.text,
+                      cubit.passwordController.text,
+                    );
+                  }
+                },
+              ),
               Gap(35),
               Row(
                 children: [
