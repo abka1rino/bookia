@@ -1,6 +1,6 @@
 import 'package:bookia/core/services/api/api_endpoints.dart';
 import 'package:bookia/core/services/api/api_provider.dart';
-import 'package:bookia/core/services/cashing/user_caching.dart';
+import 'package:bookia/core/services/cashing/caching.dart';
 import 'package:bookia/features/auth/data/models/requests/auth_params.dart';
 import 'package:bookia/features/auth/data/models/response/auth_response.dart';
 
@@ -13,7 +13,7 @@ class AuthRepo {
       );
       if (res.statusCode == 200) {
         AuthResponse? data = AuthResponse.fromJson(res.data);
-        await UserCaching.setUserData(data);
+        await Caching.setUserData(data);
         return data;
       } else {
         return null;
@@ -31,7 +31,7 @@ class AuthRepo {
       );
       if (res.statusCode == 201) {
         AuthResponse? data = AuthResponse.fromJson(res.data);
-        await UserCaching.setUserData(data);
+        await Caching.setUserData(data);
         return data;
       } else {
         return null;

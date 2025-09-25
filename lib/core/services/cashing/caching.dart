@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:bookia/features/auth/data/models/response/auth_response.dart';
+import 'package:bookia/features/wishlist/data/models/wish_list_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserCaching {
+class Caching {
   static late SharedPreferences prefs;
   static String userDataKey = 'userData';
+  static String wishListKey = 'wishListData';
   Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
   }
@@ -52,13 +54,27 @@ class UserCaching {
     if (response == null) return;
     var data = response.toJson();
     String dataString = jsonEncode(data);
-    await UserCaching.setData(UserCaching.userDataKey, dataString);
+    await Caching.setData(Caching.userDataKey, dataString);
   }
 
-  static getUserData() {
-    String? data = UserCaching.getString(UserCaching.userDataKey);
-    if (data == null) return;
+  static AuthResponse? getUserData() {
+    String? data = Caching.getString(Caching.userDataKey);
+    if (data == null) return null;
     Map<String, dynamic> dataString = jsonDecode(data);
     return AuthResponse.fromJson(dataString);
+  }
+
+  static setWishListData(WishListResponse? response) async {
+    if (response == null) return;
+    var data = response.toJson();
+    String dataString = jsonEncode(data);
+    await Caching.setData(Caching.wishListKey, dataString);
+  }
+
+  static WishListResponse? getWishListData() {
+    String? data = Caching.getString(Caching.wishListKey);
+    if (data == null) return null;
+    Map<String, dynamic> dataString = jsonDecode(data);
+    return WishListResponse.fromJson(dataString);
   }
 }

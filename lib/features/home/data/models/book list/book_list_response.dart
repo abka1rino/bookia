@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 
 class BookListResponse {
   Data? data;
@@ -20,11 +21,11 @@ class BookListResponse {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
-    if(data != null) {
+    if (data != null) {
       _data["data"] = data?.toJson();
     }
     _data["message"] = message;
-    if(error != null) {
+    if (error != null) {
       _data["error"] = error;
     }
     _data["status"] = status;
@@ -40,7 +41,9 @@ class Data {
   Data({this.products, this.meta, this.links});
 
   Data.fromJson(Map<String, dynamic> json) {
-    products = json["products"] == null ? null : (json["products"] as List).map((e) => Products.fromJson(e)).toList();
+    products = json["products"] == null
+        ? null
+        : (json["products"] as List).map((e) => Products.fromJson(e)).toList();
     meta = json["meta"] == null ? null : Meta.fromJson(json["meta"]);
     links = json["links"] == null ? null : Links.fromJson(json["links"]);
   }
@@ -51,13 +54,13 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
-    if(products != null) {
+    if (products != null) {
       _data["products"] = products?.map((e) => e.toJson()).toList();
     }
-    if(meta != null) {
+    if (meta != null) {
       _data["meta"] = meta?.toJson();
     }
-    if(links != null) {
+    if (links != null) {
       _data["links"] = links?.toJson();
     }
     return _data;
@@ -133,8 +136,21 @@ class Products {
   int? bestSeller;
   String? image;
   String? category;
+  String? key;
 
-  Products({this.id, this.name, this.description, this.price, this.discount, this.priceAfterDiscount, this.stock, this.bestSeller, this.image, this.category});
+  Products({
+    this.id,
+    this.name,
+    this.description,
+    this.price,
+    this.discount,
+    this.priceAfterDiscount,
+    this.stock,
+    this.bestSeller,
+    this.image,
+    this.category,
+    this.key,
+  });
 
   Products.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -147,6 +163,7 @@ class Products {
     bestSeller = json["best_seller"];
     image = json["image"];
     category = json["category"];
+    key = UniqueKey().toString();
   }
 
   static List<Products> fromList(List<Map<String, dynamic>> list) {
