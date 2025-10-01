@@ -5,6 +5,8 @@ import 'package:bookia/features/auth/presentation/pages/login_screen.dart';
 import 'package:bookia/features/auth/presentation/pages/otp_screen.dart';
 import 'package:bookia/features/auth/presentation/pages/register_screen.dart';
 import 'package:bookia/features/auth/presentation/pages/resset_success_screen.dart';
+import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:bookia/features/cart/presentation/pages/place_order_screen.dart';
 import 'package:bookia/features/home/data/models/book%20list/book_list_response.dart';
 import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bookia/features/home/presentation/pages/details_screen.dart';
@@ -27,12 +29,17 @@ class Routes {
   // main
   static final String main = '/main';
   static final String details = '/details';
- 
+
+  //cart
+  static final String placeOrder = '/placeOrder';
 
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
-      GoRoute(path: main, builder: (context, state) => MainScreen()),
+      GoRoute(path: main, builder: (context, state) {
+        var startIndex=state.extra as int;
+        return MainScreen();
+      }),
       GoRoute(path: welcome, builder: (context, state) => WelcomeScreen()),
       GoRoute(
         path: login,
@@ -85,8 +92,18 @@ class Routes {
         path: details,
         builder: (context, state) => BlocProvider(
           create: (context) => HomeCubit(),
-          child: DetailsScreen(product: state.extra as Products,),
+          child: DetailsScreen(product: state.extra as Products),
         ),
+      ),
+      GoRoute(
+        path: placeOrder,
+        builder: (context, state) {
+          var total = state.extra;
+          return BlocProvider(
+            create: (context) => CartCubit()..initData(),
+            child: PlaceOrderScreen(total: total),
+          );
+        },
       ),
     ],
   );

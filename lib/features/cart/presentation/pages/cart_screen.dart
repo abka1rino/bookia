@@ -1,3 +1,6 @@
+import 'package:bookia/components/buttons/main_button.dart';
+import 'package:bookia/core/routes/navigation.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/app_colors.dart';
 import 'package:bookia/core/utils/text_style.dart';
 import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
@@ -24,45 +27,99 @@ class CartScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: BlocBuilder<CartCubit, CartState>(
+        body: BlocConsumer<CartCubit, CartState>(
           builder: (BuildContext context, state) {
             var cubit = context.read<CartCubit>();
-            if (state is CartRemoveError) {
+            if (state is CartError&&state is CartLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return Column(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        return CartCard(
+                          product: cubit.cart[index],
+                          ondelete: () {
+                            cubit.removeFromCart(
+                              cartItemId: cubit.cart[index].itemId ?? 0,
+                            );
+                          },
+                          onUpdate: (val) {
+                            cubit.updateCart(
+                              cartItemId: cubit.cart[index].itemId ?? 0,
+                              quantity: val,
+                            );
+                          },
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return Divider(
+                          color: Color(0xffF0F0F0),
+                          endIndent: 25,
+                          indent: 25,
+                        );
+                      },
+                      itemCount: cubit.cart.length,
+                    ),
+                  ),
+                ),
+                cubit.cartIsNotEmpty()
+                    ? Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Total:',
+                                  style: TextStyles.getTitle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Text(
+                                  '\$ ${cubit.cartTotal}',
+                                  style: TextStyles.getTitle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
+                            child: MainButton(
+                              text: 'Checkout',
+                              onPressed: () {
+                                cubit.checkout();
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    : SizedBox(),
+              ],
+            );
+          },
+          listener: (BuildContext context, CartState state) {
+            if (state is CartRemoveError || state is CheckoutError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Something Wrong!'),
                   backgroundColor: AppColors.primaryColor,
                 ),
               );
-            } else if (state is! CartSuccess) {
-              return const Center(child: CircularProgressIndicator());
+            } else if (state is CheckoutSuccess) {
+              pushTo(context, Routes.placeOrder,extra:context.read<CartCubit>().cartTotal);
             }
-            return ListView.separated(
-              itemBuilder: (context, index) {
-                return CartCard(
-                  product: cubit.cart[index],
-                  ondelete: () {
-                    cubit.removeFromCart(
-                      cartItemId: cubit.cart[index].itemId ?? 0,
-                    );
-                  },
-                  onUpdate: (val) {
-                    cubit.updateCart(
-                      cartItemId: cubit.cart[index].itemId ?? 0,
-                      quantity: val,
-                    );
-                  },
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return Divider(
-                  color: Color(0xffF0F0F0),
-                  endIndent: 25,
-                  indent: 25,
-                );
-              },
-              itemCount: cubit.cart.length,
-            );
           },
         ),
       ),

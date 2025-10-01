@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MainScreen extends StatefulWidget {
-  MainScreen({super.key});
-
+  MainScreen({super.key, this.initialIndex});
   @override
+  final int? initialIndex;
   State<MainScreen> createState() => _MainScreenState();
 }
 
@@ -24,6 +24,11 @@ class _MainScreenState extends State<MainScreen> {
   int index = 0;
 
   @override
+  void didUpdateWidget(covariant MainScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    index = widget.initialIndex ?? 0;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[index],

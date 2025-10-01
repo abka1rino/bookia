@@ -88,4 +88,55 @@ class CartRepo {
       return null;
     }
   }
+
+  static Future<bool> checkout() async {
+    try {
+      var res = await ApiProvider.get(
+        ApiEndpoints.checkout,
+        headers: {
+          "Authorization": "Bearer ${Caching.getUserData()?.data?.token}",
+        },
+      );
+      if (res.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  static Future<bool> placeOrder({
+    required int governorateId,
+    required String name,
+    required String phone,
+    required String email,
+    required String address,
+  }) async {
+    try {
+      var res = await ApiProvider.post(
+        ApiEndpoints.placeOrder,
+        data: {
+          "governorate_id": governorateId,
+          "name": name,
+          "phone": phone,
+          "address": address,
+          "email": email,
+        },
+        headers: {
+          "Authorization": "Bearer ${Caching.getUserData()?.data?.token}",
+        },
+      );
+      if (res.statusCode == 201) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
 }
