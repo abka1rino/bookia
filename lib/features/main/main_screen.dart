@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({super.key, this.initialIndex});
-  @override
+ 
   final int? initialIndex;
   State<MainScreen> createState() => _MainScreenState();
 }
