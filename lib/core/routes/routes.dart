@@ -36,10 +36,13 @@ class Routes {
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
-      GoRoute(path: main, builder: (context, state) {
-        var startIndex=state.extra as int;
-        return MainScreen();
-      }),
+      GoRoute(
+        path: main,
+        builder: (context, state) {
+          var startIndex = state.extra as int;
+          return MainScreen(initialIndex: startIndex);
+        },
+      ),
       GoRoute(path: welcome, builder: (context, state) => WelcomeScreen()),
       GoRoute(
         path: login,
