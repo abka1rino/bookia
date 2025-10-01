@@ -2,6 +2,7 @@ import 'package:bookia/components/app%20bar/app_bar.dart';
 import 'package:bookia/components/buttons/main_button.dart';
 import 'package:bookia/components/inputs/custom_text_form_field.dart';
 import 'package:bookia/core/constants/app_assets.dart';
+import 'package:bookia/core/extentions/app_regex.dart';
 import 'package:bookia/core/routes/navigation.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/app_colors.dart';
@@ -82,6 +83,8 @@ class LoginScreen extends StatelessWidget {
                 validator: (val) {
                   if (val == null || val == '') {
                     return 'Please enter your email';
+                  } else if (!AppRegex.email.hasMatch(val)) {
+                    return 'Please enter a valid email';
                   } else {
                     return null;
                   }

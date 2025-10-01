@@ -11,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.controller,
     this.obscureText = false,
+    this.readOnly=false,
   });
   final String labelText;
   final Widget? suffixIcon;
@@ -18,10 +19,12 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final String? Function(dynamic)? validator;
   final bool obscureText;
+  final bool readOnly;
   final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: !readOnly,
       controller: controller,
       obscureText: obscureText,
       validator: validator,
@@ -39,6 +42,10 @@ class CustomTextFormField extends StatelessWidget {
           borderSide: BorderSide(color: Color(0xffEDF1F6), width: 1.2),
         ),
         enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(color: Color(0xffEDF1F6), width: 1.2),
+        ),
+        disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide(color: Color(0xffEDF1F6), width: 1.2),
         ),

@@ -19,8 +19,10 @@ class ApiEndpoints {
   static const String showWishlist = '$baseUrl/wishlist';
 
   //cart
-   static const String showCart = '$baseUrl/cart';
-   static const String addToCart = '$baseUrl/add-to-cart';
-   static const String updateCart = '$baseUrl/update-cart';
-   static const String removeFromCart = '$baseUrl/remove-from-cart';
+  static const String showCart = '$baseUrl/cart';
+  static const String addToCart = '$baseUrl/add-to-cart';
+  static const String updateCart = '$baseUrl/update-cart';
+  static const String removeFromCart = '$baseUrl/remove-from-cart';
+  static const String checkout = '$baseUrl/checkout';
+  static const String placeOrder = '$baseUrl/place-order';
 }

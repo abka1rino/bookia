@@ -25,7 +25,6 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     });
 
-    // Perform any initialization tasks here
   }
 
   @override

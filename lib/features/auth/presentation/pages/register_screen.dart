@@ -1,6 +1,7 @@
 import 'package:bookia/components/buttons/main_button.dart';
 import 'package:bookia/components/inputs/custom_text_form_field.dart';
 import 'package:bookia/core/constants/app_assets.dart';
+import 'package:bookia/core/extentions/app_regex.dart';
 import 'package:bookia/core/routes/navigation.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/app_colors.dart';
@@ -122,13 +123,18 @@ class RegisterScreen extends StatelessWidget {
               CustomTextFormField(labelText: 'Username', controller: cubit.usernameController,validator: (val) {
                 if (val == null || val.isEmpty) {
                   return 'Please enter your username';
+                } else if (!AppRegex.username.hasMatch(val)) {
+                  return 'Please enter a valid username';
                 }
+
                 return null;
               },),
               Gap(12),
               CustomTextFormField(labelText: 'Email', controller: cubit.emailController,validator: (val) {
                 if (val == null || val.isEmpty) {
                   return 'Please enter your email';
+                } else if (!AppRegex.email.hasMatch(val)) {
+                  return 'Please enter a valid email';
                 }
                 return null;
               },),
@@ -136,6 +142,8 @@ class RegisterScreen extends StatelessWidget {
               CustomTextFormField(labelText: 'Password', controller: cubit.passwordController,  validator: (val) {
                 if (val == null || val.isEmpty) {
                   return 'Please enter your password';
+                } else if (!AppRegex.password.hasMatch(val)) {
+                  return 'Please enter a valid password';
                 }
                 return null;
               },

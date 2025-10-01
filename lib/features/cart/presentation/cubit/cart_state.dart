@@ -4,4 +4,8 @@ class CartLoading extends CartState {}
 class CartSuccess extends CartState {}
 class CartError extends CartState {}
 class CartRemoveError extends CartState {}
-class quantitiyChang extends CartState{}
+class QuantitiyChang extends CartState{}
+
+
+class CheckoutSuccess extends CartState {}
+class CheckoutError extends CartState {}
