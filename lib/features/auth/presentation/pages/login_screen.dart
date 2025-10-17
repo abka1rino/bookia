@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
             );
           } else if (state is AuthSuccess) {
             pop(context);
-            pushUntil(context, Routes.main);
+            pushUntil(context, Routes.main,extra: 0);
           } else if (state is AuthError) {
             pop(context);
             ScaffoldMessenger.of(context).showSnackBar(

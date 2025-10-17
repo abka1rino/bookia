@@ -1,3 +1,4 @@
+import 'package:bookia/core/constants/app_assets.dart';
 import 'package:bookia/core/utils/app_colors.dart';
 import 'package:bookia/core/utils/text_style.dart';
 import 'package:bookia/features/wishlist/presentation/cubit/wishlist_cubit.dart';
@@ -5,6 +6,8 @@ import 'package:bookia/features/wishlist/presentation/cubit/wishlist_state.dart'
 import 'package:bookia/features/wishlist/presentation/widgets/wishlist_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 
 class WishlistScreen extends StatelessWidget {
   const WishlistScreen({super.key});
@@ -27,7 +30,6 @@ class WishlistScreen extends StatelessWidget {
         body: BlocBuilder<WishlistCubit, WishlistState>(
           builder: (BuildContext context, state) {
             var cubit = context.read<WishlistCubit>();
-            print(state);
             if (state is WishlistRemoveError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -37,6 +39,32 @@ class WishlistScreen extends StatelessWidget {
               );
             } else if (state is! WishlistSuccess) {
               return const Center(child: CircularProgressIndicator());
+            }
+            if (cubit.wishlist.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      AppAssets.bookMarkIcon,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.primaryColor,
+                        BlendMode.srcIn,
+                      ),
+                      width: 100,
+                      height: 100,
+                    ),
+                    Gap(20),
+                    Text(
+                      'Your wishlist is empty',
+                      style: TextStyles.getTitle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              );
             }
             return ListView.separated(
               itemBuilder: (context, index) {

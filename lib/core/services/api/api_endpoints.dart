@@ -25,4 +25,11 @@ class ApiEndpoints {
   static const String removeFromCart = '$baseUrl/remove-from-cart';
   static const String checkout = '$baseUrl/checkout';
   static const String placeOrder = '$baseUrl/place-order';
+
+  //profile
+  static const String updateUserProfile = '$baseUrl/update-profile';
+  static const String updateUserPassword = '$baseUrl/update-password';
+
+  //search
+  static const String search = '$baseUrl/products-search';
 }

@@ -12,4 +12,6 @@ class AppAssets {
   static const String homeIcon = 'assets/icons/Home.svg';
   static const String profileIcon = 'assets/icons/Profile.svg';
   static const String closeIcon = 'assets/icons/Shape.jpg';
+  static const String pincleIcon = 'assets/images/pincle.svg';
+
 }
