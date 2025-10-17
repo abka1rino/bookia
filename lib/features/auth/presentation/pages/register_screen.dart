@@ -86,7 +86,7 @@ class RegisterScreen extends StatelessWidget {
             );
           } else if (state is AuthSuccess) {
             Navigator.of(context).pop(); 
-            pushUntil(context, Routes.main);
+            pushUntil(context, Routes.main,extra: 0);
           } else if (state is AuthError) {
             Navigator.of(context).pop(); 
             ScaffoldMessenger.of(context).showSnackBar(

@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeState());
   List<Products> allProducts = [];
+  List<Products> searchedProducts = [];
   List<Products> newArrivalsProducts = [];
   List<Products> bestSellerProducts = [];
   List<Sliders> sliderList = [];
@@ -29,6 +30,21 @@ class HomeCubit extends Cubit<HomeState> {
       newArrivalsProducts = (res[1] as BookListResponse).data!.products ?? [];
       bestSellerProducts = (res[2] as BookListResponse).data!.products ?? [];
       sliderList = (res[3] as SliderList).data!.sliders ?? [];
+      emit(HomeSuccess());
+    } catch (e) {
+      emit(HomeError());
+    }
+    return;
+  }
+
+  Future<void> search(String productName) async {
+    emit(HomeLoading());
+    try {
+      var res = await HomeRepo.searchProducts(
+        ApiEndpoints.allProducts,
+        productName,
+      );
+      searchedProducts = res?.data?.products ?? [];
       emit(HomeSuccess());
     } catch (e) {
       emit(HomeError());

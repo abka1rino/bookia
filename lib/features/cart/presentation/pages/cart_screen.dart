@@ -1,4 +1,5 @@
 import 'package:bookia/components/buttons/main_button.dart';
+import 'package:bookia/core/constants/app_assets.dart';
 import 'package:bookia/core/routes/navigation.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/app_colors.dart';
@@ -8,6 +9,8 @@ import 'package:bookia/features/cart/presentation/cubit/cart_state.dart';
 import 'package:bookia/features/cart/presentation/widgets/cart_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -30,8 +33,34 @@ class CartScreen extends StatelessWidget {
         body: BlocConsumer<CartCubit, CartState>(
           builder: (BuildContext context, state) {
             var cubit = context.read<CartCubit>();
-            if (state is CartError&&state is CartLoading) {
+            if (state is CartError && state is CartLoading) {
               return const Center(child: CircularProgressIndicator());
+            }
+            if (cubit.cart.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      AppAssets.cartIcon,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.primaryColor,
+                        BlendMode.srcIn,
+                      ),
+                      width: 100,
+                      height: 100,
+                    ),
+                    Gap(20),
+                    Text(
+                      'Your cart is empty',
+                      style: TextStyles.getTitle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              );
             }
             return Column(
               children: [
@@ -118,7 +147,11 @@ class CartScreen extends StatelessWidget {
                 ),
               );
             } else if (state is CheckoutSuccess) {
-              pushTo(context, Routes.placeOrder,extra:context.read<CartCubit>().cartTotal);
+              pushTo(
+                context,
+                Routes.placeOrder,
+                extra: context.read<CartCubit>().cartTotal,
+              );
             }
           },
         ),

@@ -2,6 +2,7 @@ import 'package:bookia/core/constants/app_assets.dart';
 import 'package:bookia/core/utils/app_colors.dart';
 import 'package:bookia/features/cart/presentation/pages/cart_screen.dart';
 import 'package:bookia/features/home/presentation/pages/home_screen.dart';
+import 'package:bookia/features/profile/presentation/pages/profile_screen.dart';
 import 'package:bookia/features/wishlist/presentation/pages/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,15 +18,24 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen(),
     WishlistScreen(),
     CartScreen(),
-    HomeScreen(),
+    ProfileScreen(),
   ];
 
   int index = 0;
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      index = widget.initialIndex ?? index;
+    });
+  }
+  @override
   void didUpdateWidget(covariant MainScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-    index = widget.initialIndex ?? 0;
+      setState(() {
+        index = widget.initialIndex ?? index;
+      });
   }
 
   Widget build(BuildContext context) {

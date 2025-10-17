@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class VerticalBoxesShow extends StatelessWidget {
-  const VerticalBoxesShow({super.key, required this.booksList});
+  const VerticalBoxesShow({super.key, required this.booksList, this.title});
 
   final List<Products> booksList;
-
+  final String? title;
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('All Books', style: TextStyles.getTitle()),
+        Text(title ?? 'All Books', style: TextStyles.getTitle()),
         Gap(10),
         GridView.builder(
           shrinkWrap: true,

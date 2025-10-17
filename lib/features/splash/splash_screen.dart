@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(Duration(seconds: 2), () {
       if (Caching.getUserData() != null) {
-        pushWithReplacement(context, Routes.main);
+        pushWithReplacement(context, Routes.main,extra: 0);
       } else {
         pushWithReplacement(context, Routes.welcome);
       }

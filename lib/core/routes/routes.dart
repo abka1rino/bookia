@@ -10,7 +10,11 @@ import 'package:bookia/features/cart/presentation/pages/place_order_screen.dart'
 import 'package:bookia/features/home/data/models/book%20list/book_list_response.dart';
 import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bookia/features/home/presentation/pages/details_screen.dart';
+import 'package:bookia/features/home/presentation/pages/search_screen.dart';
 import 'package:bookia/features/main/main_screen.dart';
+import 'package:bookia/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:bookia/features/profile/presentation/pages/edit_profile_screen.dart';
+import 'package:bookia/features/profile/presentation/pages/update_password_screen.dart';
 import 'package:bookia/features/splash/splash_screen.dart';
 import 'package:bookia/features/welcome/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +36,13 @@ class Routes {
 
   //cart
   static final String placeOrder = '/placeOrder';
+
+  //profile
+  static final String editProfile = '/editProfile';
+  static final String updatePassword = '/updatePassword';
+
+  //home
+  static final String search = '/search';
 
   static final routes = GoRouter(
     routes: [
@@ -107,6 +118,27 @@ class Routes {
             child: PlaceOrderScreen(total: total),
           );
         },
+      ),
+      GoRoute(
+        path: editProfile,
+        builder: (context, state) => BlocProvider(
+          create: (context) => ProfileCubit()..initData(),
+          child: EditProfileScreen(),
+        ),
+      ),
+      GoRoute(
+        path: updatePassword,
+        builder: (context, state) => BlocProvider(
+          create: (context) => ProfileCubit(),
+          child: UpdatePasswordScreen(),
+        ),
+      ),
+      GoRoute(
+        path: search,
+        builder: (context, state) => BlocProvider(
+          create: (context) => HomeCubit(),
+          child: SearchScreen(),
+        ),
       ),
     ],
   );
